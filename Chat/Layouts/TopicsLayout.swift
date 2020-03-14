@@ -7,7 +7,7 @@ class TopicsLayout: UIView {
     let titleSection = UIView()
     let title = UILabel()
     let createSection = UIView()
-    let createTitle = TextField()
+    let createName = TextField()
     let create = UIButton()
     let collection: UICollectionView
     
@@ -34,7 +34,7 @@ class TopicsLayout: UIView {
         
         addSubview(head)
         head.addSubview(createSection)
-        createSection.addSubview(createTitle)
+        createSection.addSubview(createName)
         head.addSubview(titleSection)
         titleSection.addSubview(title)
         head.addSubview(create)
@@ -54,10 +54,10 @@ class TopicsLayout: UIView {
         createSection.autoSetDimension(.height, toSize: 60)
         createSection.isHidden = true
         
-        createTitle.placeholder = "New topic name"
-        createTitle.padding = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 5)
-        createTitle.autoPinEdgesToSuperviewEdges(with: .zero, excludingEdge: .right)
-        createTitle.autoPinEdge(.right, to: .left, of: create)
+        createName.placeholder = "New topic name"
+        createName.padding = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 5)
+        createName.autoPinEdgesToSuperviewEdges(with: .zero, excludingEdge: .right)
+        createName.autoPinEdge(.right, to: .left, of: create)
         
         titleSection.backgroundColor = .white
         titleSection.autoPinEdgesToSuperviewEdges(with: .zero, excludingEdge: .bottom)
@@ -92,7 +92,7 @@ class TopicsLayout: UIView {
         createSection.isHidden = false
         createBottom.constant = 0
         createHeight.constant = 60
-        createTitle.becomeFirstResponder()
+        createName.becomeFirstResponder()
         UIView.animate(withDuration: 0.25, animations: {
             self.headBorder.alpha = 0
             self.create.tintColor = .white
@@ -105,10 +105,10 @@ class TopicsLayout: UIView {
     @objc func hideCreate() {
         headHeight.constant = headClosed
         headBorder.isHidden = false
-        createBottom.constant = 2
+        createBottom.constant = -2
         createHeight.constant = 50
-        createTitle.text = nil
-        createTitle.resignFirstResponder()
+        createName.text = nil
+        createName.resignFirstResponder()
         UIView.animate(withDuration: 0.25, animations: {
             self.headBorder.alpha = 1
             self.create.tintColor = .systemBlue

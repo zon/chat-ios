@@ -4,7 +4,12 @@ import UIKit
 class TopicsController: UIViewController {
     let layout = TopicsLayout()
     
-    var topics: [Topic] = []
+    var topics: [Topic] = [
+        Topic(name: "General"),
+        Topic(name: "Games"),
+        Topic(name: "Food"),
+        Topic(name: "Events")
+    ]
     
     var collection: UICollectionView {
         get {
@@ -24,17 +29,15 @@ class TopicsController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        topics = [
-            Topic(name: "General"),
-            Topic(name: "Games"),
-            Topic(name: "Food"),
-            Topic(name: "Events")
-        ]
         collection.reloadData()
     }
     
     @objc func onTapCreate() {
         if layout.createOpen {
+            if let name = layout.createName.text, !name.isEmpty {
+                topics.append(Topic(name: name))
+                collection.reloadData()
+            }
             layout.hideCreate()
         } else {
             layout.showCreate()
