@@ -1,10 +1,14 @@
 import Foundation
 
-struct Topic: Hashable, Codable, Identifiable {
+class Topic: Hashable, Codable, Identifiable {
     let id = UUID()
     let name: String
     
     var messages: [Message]
+    
+    static func == (a: Topic, b: Topic) -> Bool {
+        return a.id == b.id && a.name == b.name
+    }
     
     init(name: String) {
         self.name = name
@@ -20,6 +24,11 @@ struct Topic: Hashable, Codable, Identifiable {
             Message(user: alice, content: "Bew bew bew")
         ]
         self.messages = messages
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(name)
     }
     
 }

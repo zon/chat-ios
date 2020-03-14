@@ -44,8 +44,8 @@ class TopicLayout: UIView {
         title.autoAlignAxis(toSuperviewMarginAxis: .vertical)
         
         back.setImage(#imageLiteral(resourceName: "round_chevron_left_black_24pt"), for: .normal)
-        back.autoPinEdges(toSuperviewMarginsExcludingEdge: .right)
-        back.autoMatchImage(.width, plus: 15)
+        back.autoPinEdgesToSuperviewSafeArea(with: .zero, excludingEdge: .right)
+        back.autoMatchImage(.width, plus: 22)
         
         collection.backgroundColor = .none
         collection.autoPinEdge(toSuperviewEdge: .left)

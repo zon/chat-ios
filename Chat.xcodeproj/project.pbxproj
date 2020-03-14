@@ -19,6 +19,7 @@
 		EC1349D52401B5C500632049 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1349D42401B5C500632049 /* Topic.swift */; };
 		EC1349DC2401CCF400632049 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1349DB2401CCF400632049 /* Format.swift */; };
 		EC775175241D1F4C003F6801 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC775174241D1F4C003F6801 /* UIButton+Extension.swift */; };
+		EC775177241D5903003F6801 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC775176241D5903003F6801 /* TextField.swift */; };
 		ECAE31A6241C60B100D2484F /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAE31A5241C60B100D2484F /* NavigationController.swift */; };
 		ECAFB86D241BBEF700496852 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAFB86C241BBEF700496852 /* UIView+Extension.swift */; };
 		ECAFB86F241BC8B100496852 /* UIEdgeInsets+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAFB86E241BC8B100496852 /* UIEdgeInsets+Extension.swift */; };
@@ -67,6 +68,7 @@
 		EC1349D42401B5C500632049 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		EC1349DB2401CCF400632049 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		EC775174241D1F4C003F6801 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		EC775176241D5903003F6801 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		ECAE31A5241C60B100D2484F /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		ECAFB86C241BBEF700496852 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		ECAFB86E241BC8B100496852 /* UIEdgeInsets+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Extension.swift"; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 			children = (
 				ECDAC055241AFCC100A8A167 /* MessageCell.swift */,
 				ECDAC05E241B170100A8A167 /* TopicCell.swift */,
+				EC775176241D5903003F6801 /* TextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				ECAFB86F241BC8B100496852 /* UIEdgeInsets+Extension.swift in Sources */,
 				ECDAC066241B257000A8A167 /* TopicsLayout.swift in Sources */,
 				EC1349D12401B4DA00632049 /* User.swift in Sources */,
+				EC775177241D5903003F6801 /* TextField.swift in Sources */,
 				EC1349D52401B5C500632049 /* Topic.swift in Sources */,
 				ECDAC05F241B170100A8A167 /* TopicCell.swift in Sources */,
 				ECAE31A6241C60B100D2484F /* NavigationController.swift in Sources */,

@@ -29,6 +29,7 @@ class TopicController: UIViewController {
         collection.dataSource = self
         collection.delegate = self
         layout.back.addTarget(self, action: #selector(onTapBack), for: .touchUpInside)
+        layout.send.addTarget(self, action: #selector(onSend), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,6 +39,15 @@ class TopicController: UIViewController {
     
     @objc func onTapBack() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func onSend() {
+        guard let content = layout.input.text, let user = topic.messages.first?.user else { return }
+        let message = Message(user: user, content: content)
+        topic.messages.append(message)
+        
+        layout.input.text = nil
+        collection.reloadData()
     }
     
 }

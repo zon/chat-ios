@@ -17,6 +17,7 @@ class TopicsController: UIViewController {
     }
     
     override func viewDidLoad() {
+        layout.create.addTarget(self, action: #selector(onTapCreate), for: .touchUpInside)
         collection.register(TopicCell.self, forCellWithReuseIdentifier: TopicCell.identifier)
         collection.dataSource = self
         collection.delegate = self
@@ -30,6 +31,14 @@ class TopicsController: UIViewController {
             Topic(name: "Events")
         ]
         collection.reloadData()
+    }
+    
+    @objc func onTapCreate() {
+        if layout.createOpen {
+            layout.hideCreate()
+        } else {
+            layout.showCreate()
+        }
     }
     
 }

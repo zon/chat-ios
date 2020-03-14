@@ -4,7 +4,8 @@ import PureLayout
 
 extension UIView {
     
-    func addBorder(edge: ALEdge, width: CGFloat = 2, color: UIColor = .systemGray6) {
+    @discardableResult
+    func addBorder(edge: ALEdge, width: CGFloat = 2, color: UIColor = .systemGray6) -> UIView {
         let line = UIView()
         addSubview(line)
         line.backgroundColor = color
@@ -28,6 +29,7 @@ extension UIView {
         default:
             break
         }
+        return line
     }
     
 }
