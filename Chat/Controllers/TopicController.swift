@@ -52,6 +52,7 @@ class TopicController: UIViewController {
         
         layout.input.text = nil
         table.reloadData()
+        table.scrollToRow(at: IndexPath(row: topic.messages.count - 1, section: 0), at: .bottom, animated: true)
     }
     
 }

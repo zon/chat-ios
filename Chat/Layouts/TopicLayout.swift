@@ -8,8 +8,7 @@ class TopicLayout: UIView {
     let back = UIButton()
     let messages = UITableView()
     let foot = UIView()
-    let inputPlaceholder = UILabel()
-    let input = UITextView()
+    let input = ParagraphField()
     let send = UIButton()
     
     private var footBottom: NSLayoutConstraint!
@@ -22,7 +21,6 @@ class TopicLayout: UIView {
         head.addSubview(back)
         addSubview(messages)
         addSubview(foot)
-        foot.addSubview(inputPlaceholder)
         foot.addSubview(input)
         foot.addSubview(send)
         
@@ -52,32 +50,22 @@ class TopicLayout: UIView {
         messages.autoPinEdge(.bottom, to: .top, of: foot)
         
         foot.backgroundColor = .white
+        foot.layoutMargins = .zero
         foot.addBorder(edge: .top)
         foot.autoPinEdge(toSuperviewEdge: .left)
         foot.autoPinEdge(toSuperviewEdge: .right)
         footBottom = foot.autoPinEdge(toSuperviewSafeArea: .bottom, withInset: 0)
-        foot.autoMatch(.height, to: .height, of: input)
         
-        let inputInsets = UIEdgeInsets(top: 17, left: 20, bottom: 15, right: 0)
-        
-        inputPlaceholder.text = "Send message"
-        inputPlaceholder.textColor = .systemGray2
-        inputPlaceholder.font = .systemFont(ofSize: 18)
-        inputPlaceholder.autoPinEdgesToSuperviewEdges(with: inputInsets)
-        
-        input.font = inputPlaceholder.font
-        input.textContainer.lineFragmentPadding = 0
-        input.textContainerInset = inputInsets
-        input.isScrollEnabled = false
-        input.backgroundColor = .clear
-        input.autoPinEdge(toSuperviewEdge: .left)
+        input.font = .systemFont(ofSize: 18)
+        input.padding = UIEdgeInsets(top: 15, left: 20, bottom: 15, right: 0)
+        input.placeholder.text = "Send message"
+        input.placeholder.textColor = .systemGray2
+        input.autoPinEdges(toSuperviewMarginsExcludingEdge: .right)
         input.autoPinEdge(.right, to: .left, of: send)
         
         send.setImage(UIImage(named: "round_send_black_24pt"), for: .normal)
-        send.autoPinEdgesToSuperviewEdges(with: .zero, excludingEdge: .left)
+        send.autoPinEdges(toSuperviewMarginsExcludingEdge: .left)
         send.autoMatchImage(.width, plus: 30)
-        
-        input.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
@@ -114,17 +102,6 @@ class TopicLayout: UIView {
     
     @objc func dismissKeyboard() {
         input.resignFirstResponder()
-    }
-    
-}
-
-extension TopicLayout: UITextViewDelegate {
-    
-    func textViewDidChange(_ textView: UITextView) {
-        let isHidden = !input.text.isEmpty
-        UIView.animate(withDuration: 0.125, animations: {
-            self.inputPlaceholder.alpha = isHidden ? 0 : 1
-        })
     }
     
 }
