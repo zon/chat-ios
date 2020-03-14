@@ -64,8 +64,10 @@ class TopicLayout: UIView {
         
         inputPlaceholder.text = "Send message"
         inputPlaceholder.textColor = .systemGray2
+        inputPlaceholder.font = .systemFont(ofSize: 18)
         inputPlaceholder.autoPinEdgesToSuperviewEdges(with: inputInsets)
         
+        input.font = inputPlaceholder.font
         input.textContainer.lineFragmentPadding = 0
         input.textContainerInset = inputInsets
         input.isScrollEnabled = false
@@ -76,6 +78,16 @@ class TopicLayout: UIView {
         send.setImage(UIImage(named: "round_send_black_24pt"), for: .normal)
         send.autoPinEdgesToSuperviewEdges(with: .zero, excludingEdge: .left)
         send.autoMatchImage(.width, plus: 30)
+        
+        input.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        head.addGestureRecognizer(tap)
+        collection.addGestureRecognizer(tap)
     }
     
     required init?(coder: NSCoder) {
@@ -84,6 +96,37 @@ class TopicLayout: UIView {
     
     func setup(topic: Topic) {
         title.text = topic.name
+    }
+    
+    @objc func keyboardWillChange(_ notification: Notification) {
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            UIView.animate(withDuration: 0.25) {
+                self.footBottom.constant = 0
+                self.layoutIfNeeded()
+            }
+            
+        } else {
+            guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height else { return }
+            UIView.animate(withDuration: 0.25) {
+                self.footBottom.constant = self.safeAreaInsets.bottom - keyboardHeight
+                self.layoutIfNeeded()
+            }
+        }
+    }
+    
+    @objc func dismissKeyboard() {
+        input.resignFirstResponder()
+    }
+    
+}
+
+extension TopicLayout: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let isHidden = !input.text.isEmpty
+        UIView.animate(withDuration: 0.125, animations: {
+            self.inputPlaceholder.alpha = isHidden ? 0 : 1
+        })
     }
     
 }

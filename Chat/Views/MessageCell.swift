@@ -34,6 +34,9 @@ class MessageCell: UICollectionViewCell {
         stack.isLayoutMarginsRelativeArrangement = true
         stack.autoMatch(.width, to: .width, of: self)
         
+        user.font = .systemFont(ofSize: 12, weight: .light)
+        
+        body.font = .systemFont(ofSize: 18)
         body.isEditable = false
         body.isScrollEnabled = false
         body.textContainer.lineFragmentPadding = 0
