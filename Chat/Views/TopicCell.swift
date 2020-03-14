@@ -3,7 +3,7 @@ import UIKit
 
 class TopicCell: UICollectionViewCell {
     let name = UILabel()
-    let chevron = UIImageView(image: #imageLiteral(resourceName: "ic_chevron_right"))
+    let chevron = UIImageView(image: #imageLiteral(resourceName: "round_chevron_right_black_24pt"))
     
     static let identifier = "topic-view"
     
