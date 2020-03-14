@@ -6,7 +6,7 @@ class TopicLayout: UIView {
     let head = UIView()
     let title = UILabel()
     let back = UIButton()
-    let collection: UICollectionView
+    let messages = UITableView()
     let foot = UIView()
     let inputPlaceholder = UILabel()
     let input = UITextView()
@@ -15,17 +15,12 @@ class TopicLayout: UIView {
     private var footBottom: NSLayoutConstraint!
     
     init() {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
         super.init(frame: UIScreen.main.bounds)
         
         addSubview(head)
         head.addSubview(title)
         head.addSubview(back)
-        addSubview(collection)
+        addSubview(messages)
         addSubview(foot)
         foot.addSubview(inputPlaceholder)
         foot.addSubview(input)
@@ -47,11 +42,14 @@ class TopicLayout: UIView {
         back.autoPinEdgesToSuperviewSafeArea(with: .zero, excludingEdge: .right)
         back.autoMatchImage(.width, plus: 22)
         
-        collection.backgroundColor = .none
-        collection.autoPinEdge(toSuperviewEdge: .left)
-        collection.autoPinEdge(toSuperviewEdge: .right)
-        collection.autoPinEdge(.top, to: .bottom, of: head)
-        collection.autoPinEdge(.bottom, to: .top, of: foot)
+        messages.backgroundColor = .none
+        messages.separatorInset = .zero
+        messages.allowsSelection = false
+        messages.dragInteractionEnabled = false
+        messages.autoPinEdge(toSuperviewEdge: .left)
+        messages.autoPinEdge(toSuperviewEdge: .right)
+        messages.autoPinEdge(.top, to: .bottom, of: head)
+        messages.autoPinEdge(.bottom, to: .top, of: foot)
         
         foot.backgroundColor = .white
         foot.addBorder(edge: .top)
@@ -87,7 +85,7 @@ class TopicLayout: UIView {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tap.cancelsTouchesInView = false
         head.addGestureRecognizer(tap)
-        collection.addGestureRecognizer(tap)
+        messages.addGestureRecognizer(tap)
     }
     
     required init?(coder: NSCoder) {

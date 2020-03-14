@@ -5,9 +5,9 @@ class TopicController: UIViewController {
     let layout = TopicLayout()
     let topic: Topic
     
-    var collection: UICollectionView {
+    var table: UITableView {
         get {
-            return layout.collection
+            return layout.messages
         }
     }
     
@@ -25,16 +25,16 @@ class TopicController: UIViewController {
     }
     
     override func viewDidLoad() {
-        collection.register(MessageCell.self, forCellWithReuseIdentifier: MessageCell.identifier)
-        collection.dataSource = self
-        collection.delegate = self
+        table.register(MessageCell.self, forCellReuseIdentifier: MessageCell.identifier)
+        table.dataSource = self
+        table.delegate = self
         layout.back.addTarget(self, action: #selector(onTapBack), for: .touchUpInside)
         layout.send.addTarget(self, action: #selector(onSend), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         layout.setup(topic: topic)
-        collection.reloadData()
+        table.reloadData()
     }
     
     @objc func onTapBack() {
@@ -42,24 +42,28 @@ class TopicController: UIViewController {
     }
     
     @objc func onSend() {
-        guard let content = layout.input.text, let user = topic.messages.first?.user else { return }
+        guard
+            let content = layout.input.text,
+            !content.isEmpty,
+            let user = topic.messages.first?.user
+        else { return }
         let message = Message(user: user, content: content)
         topic.messages.append(message)
         
         layout.input.text = nil
-        collection.reloadData()
+        table.reloadData()
     }
     
 }
 
-extension TopicController: UICollectionViewDataSource {
+extension TopicController: UITableViewDataSource {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return topic.messages.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collection.dequeueReusableCell(withReuseIdentifier: MessageCell.identifier, for: indexPath) as! MessageCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = table.dequeueReusableCell(withIdentifier: MessageCell.identifier, for: indexPath) as! MessageCell
         let message = topic.messages[indexPath.item]
         cell.setup(message: message)
         return cell
@@ -67,11 +71,25 @@ extension TopicController: UICollectionViewDataSource {
     
 }
 
-extension TopicController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension TopicController: UITableViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         let message = topic.messages[indexPath.item]
-        return MessageCell.estimate(message: message)
+        return MessageCell.estimate(message: message).height
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let edit = UIContextualAction(style: .normal, title: "Edit") { (_, _, complete) in
+            print("EDIT")
+            complete(true)
+        }
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, complete) in
+            print("DELETE")
+            complete(true)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [edit, delete])
     }
     
 }

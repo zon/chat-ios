@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class MessageCell: UICollectionViewCell {
+class MessageCell: UITableViewCell {
     let stack = UIStackView()
     let user = UILabel()
     let body = UITextView()
@@ -17,22 +17,21 @@ class MessageCell: UICollectionViewCell {
         return size
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         addSubview(stack)
         stack.addArrangedSubview(user)
         stack.addArrangedSubview(body)
         
         backgroundColor = .white
-        addBorder(edge: .bottom)
         
         stack.axis = .vertical
         stack.alignment = .fill
         stack.spacing = 5
         stack.layoutMargins = UIEdgeInsets(top: 10, left: 20, bottom: 12, right: 20)
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.autoMatch(.width, to: .width, of: self)
+        stack.autoPinEdgesToSuperviewEdges()
         
         user.font = .systemFont(ofSize: 12, weight: .light)
         
@@ -41,8 +40,6 @@ class MessageCell: UICollectionViewCell {
         body.isScrollEnabled = false
         body.textContainer.lineFragmentPadding = 0
         body.textContainerInset = .zero
-        
-        autoMatch(.height, to: .height, of: stack)
     }
     
     required init?(coder: NSCoder) {
