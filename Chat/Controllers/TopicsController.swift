@@ -57,4 +57,10 @@ extension TopicsController: UICollectionViewDelegate, UICollectionViewDelegateFl
         return CGSize(width: width, height: height)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let topic = topics[indexPath.item]
+        let controller = TopicController(topic: topic)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
 }

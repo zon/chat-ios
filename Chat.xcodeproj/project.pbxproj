@@ -18,11 +18,12 @@
 		EC1349D32401B53F00632049 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1349D22401B53F00632049 /* Message.swift */; };
 		EC1349D52401B5C500632049 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1349D42401B5C500632049 /* Topic.swift */; };
 		EC1349DC2401CCF400632049 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1349DB2401CCF400632049 /* Format.swift */; };
+		ECAE31A6241C60B100D2484F /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAE31A5241C60B100D2484F /* NavigationController.swift */; };
 		ECAFB86D241BBEF700496852 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAFB86C241BBEF700496852 /* UIView+Extension.swift */; };
 		ECAFB86F241BC8B100496852 /* UIEdgeInsets+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAFB86E241BC8B100496852 /* UIEdgeInsets+Extension.swift */; };
 		ECDAC052241AFC4A00A8A167 /* TopicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDAC051241AFC4A00A8A167 /* TopicController.swift */; };
 		ECDAC054241AFCA500A8A167 /* TopicLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDAC053241AFCA500A8A167 /* TopicLayout.swift */; };
-		ECDAC056241AFCC100A8A167 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDAC055241AFCC100A8A167 /* MessageView.swift */; };
+		ECDAC056241AFCC100A8A167 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDAC055241AFCC100A8A167 /* MessageCell.swift */; };
 		ECDAC05F241B170100A8A167 /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDAC05E241B170100A8A167 /* TopicCell.swift */; };
 		ECDAC064241B255600A8A167 /* TopicsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDAC063241B255600A8A167 /* TopicsController.swift */; };
 		ECDAC066241B257000A8A167 /* TopicsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDAC065241B257000A8A167 /* TopicsLayout.swift */; };
@@ -64,11 +65,12 @@
 		EC1349D22401B53F00632049 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		EC1349D42401B5C500632049 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		EC1349DB2401CCF400632049 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
+		ECAE31A5241C60B100D2484F /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		ECAFB86C241BBEF700496852 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		ECAFB86E241BC8B100496852 /* UIEdgeInsets+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Extension.swift"; sourceTree = "<group>"; };
 		ECDAC051241AFC4A00A8A167 /* TopicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicController.swift; sourceTree = "<group>"; };
 		ECDAC053241AFCA500A8A167 /* TopicLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicLayout.swift; sourceTree = "<group>"; };
-		ECDAC055241AFCC100A8A167 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		ECDAC055241AFCC100A8A167 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		ECDAC05E241B170100A8A167 /* TopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
 		ECDAC063241B255600A8A167 /* TopicsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsController.swift; sourceTree = "<group>"; };
 		ECDAC065241B257000A8A167 /* TopicsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsLayout.swift; sourceTree = "<group>"; };
@@ -189,7 +191,7 @@
 		EC1349D62401BFF700632049 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				ECDAC055241AFCC100A8A167 /* MessageView.swift */,
+				ECDAC055241AFCC100A8A167 /* MessageCell.swift */,
 				ECDAC05E241B170100A8A167 /* TopicCell.swift */,
 			);
 			path = Views;
@@ -209,6 +211,7 @@
 			children = (
 				ECDAC051241AFC4A00A8A167 /* TopicController.swift */,
 				ECDAC063241B255600A8A167 /* TopicsController.swift */,
+				ECAE31A5241C60B100D2484F /* NavigationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -410,10 +413,11 @@
 				EC1349D12401B4DA00632049 /* User.swift in Sources */,
 				EC1349D52401B5C500632049 /* Topic.swift in Sources */,
 				ECDAC05F241B170100A8A167 /* TopicCell.swift in Sources */,
+				ECAE31A6241C60B100D2484F /* NavigationController.swift in Sources */,
 				ECDAC064241B255600A8A167 /* TopicsController.swift in Sources */,
 				EC13499D2401B1A300632049 /* AppDelegate.swift in Sources */,
 				ECAFB86D241BBEF700496852 /* UIView+Extension.swift in Sources */,
-				ECDAC056241AFCC100A8A167 /* MessageView.swift in Sources */,
+				ECDAC056241AFCC100A8A167 /* MessageCell.swift in Sources */,
 				EC1349D32401B53F00632049 /* Message.swift in Sources */,
 				ECDAC054241AFCA500A8A167 /* TopicLayout.swift in Sources */,
 				EC1349DC2401CCF400632049 /* Format.swift in Sources */,
