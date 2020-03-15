@@ -84,6 +84,14 @@ class TopicLayout: UIView {
         title.text = topic.name
     }
     
+    func hideInput() {
+        foot.isHidden = true
+    }
+    
+    func showInput() {
+        foot.isHidden = false
+    }
+    
     @objc func keyboardWillChange(_ notification: Notification) {
         if notification.name == UIResponder.keyboardWillHideNotification {
             UIView.animate(withDuration: 0.25) {

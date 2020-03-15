@@ -5,6 +5,8 @@ class TopicController: UIViewController {
     let layout = TopicLayout()
     let topic: Topic
     
+    private var editingId: UUID?
+    
     var table: UITableView {
         get {
             return layout.messages
@@ -55,6 +57,11 @@ class TopicController: UIViewController {
         table.scrollToRow(at: IndexPath(row: topic.messages.count - 1, section: 0), at: .bottom, animated: true)
     }
     
+    struct MessageData {
+        let message: Message
+        var editing: Bool = false
+    }
+    
 }
 
 extension TopicController: UITableViewDataSource {
@@ -66,7 +73,12 @@ extension TopicController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: MessageCell.identifier, for: indexPath) as! MessageCell
         let message = topic.messages[indexPath.item]
-        cell.setup(message: message)
+        cell.setup(
+            index: indexPath,
+            message: message,
+            isEditing: message.id == editingId
+        )
+        cell.delegate = self
         return cell
     }
     
@@ -74,15 +86,14 @@ extension TopicController: UITableViewDataSource {
 
 extension TopicController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        let message = topic.messages[indexPath.item]
-        return MessageCell.estimate(message: message).height
-    }
-    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let edit = UIContextualAction(style: .normal, title: "Edit") { (_, _, complete) in
-            print("EDIT")
+            guard let cell = self.table.cellForRow(at: indexPath) as? MessageCell else {
+                complete(false)
+                return
+            }
+            self.showEdit(cell: cell)
             complete(true)
         }
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, complete) in
@@ -91,6 +102,44 @@ extension TopicController: UITableViewDelegate {
         }
         
         return UISwipeActionsConfiguration(actions: [edit, delete])
+    }
+    
+}
+
+extension TopicController: MessageCellDelegate {
+    
+    func onCancel(cell: MessageCell) {
+        hideEdit(cell: cell)
+    }
+    
+    func onSave(cell: MessageCell) {
+        guard
+            let index = cell.index,
+            let text = cell.body.text
+        else { return }
+        topic.messages[index.row].content = text
+        hideEdit(cell: cell)
+    }
+    
+    func showEdit(cell: MessageCell) {
+        guard let index = cell.index, let message = cell.message else { return }
+        editingId = message.id
+        reloadRows()
+        if let cell = table.cellForRow(at: index) as? MessageCell {
+            cell.body.becomeFirstResponder()
+        }
+        layout.hideInput()
+    }
+    
+    func hideEdit(cell: MessageCell) {
+        editingId = nil
+        reloadRows()
+        layout.showInput()
+    }
+    
+    func reloadRows() {
+        let paths = (0..<topic.messages.count).map { IndexPath(row: $0, section: 0) }
+        table.reloadRows(at: paths, with: .automatic)
     }
     
 }

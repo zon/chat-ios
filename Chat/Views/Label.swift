@@ -9,6 +9,15 @@ class Label: UILabel {
         }
     }
     
+    override var intrinsicContentSize: CGSize {
+        let inner = super.intrinsicContentSize
+        let padding = self.padding
+        return CGSize(
+            width: inner.width + padding.left + padding.right,
+            height: inner.height + padding.top + padding.bottom
+        )
+    }
+    
     override init(frame: CGRect) {
         padding = .zero
         super.init(frame: frame)

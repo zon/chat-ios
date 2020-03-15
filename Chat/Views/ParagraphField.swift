@@ -71,20 +71,26 @@ class ParagraphField: UIView, UITextViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    @discardableResult
+    override func becomeFirstResponder() -> Bool {
+        return field.becomeFirstResponder()
+    }
         
     func textViewDidChange(_ textView: UITextView) {
         updatePlaceholder(animate: true)
     }
     
     private func updatePlaceholder(animate: Bool) {
+        let isHidden = !field.text.isEmpty
         if animate {
+            placeholder.isHidden = false
             UIView.animate(withDuration: 0.125, animations: {
-                self.updatePlaceholder(animate: false)
-            })
+                self.placeholder.alpha = isHidden ? 0 : 1
+            }) { _ in
+                self.placeholder.isHidden = isHidden
+            }
         } else {
-            let isHidden = !field.text.isEmpty || !field.isEditable
-            placeholder.alpha = isHidden ? 0 : 1
+            placeholder.isHidden = isHidden
         }
     }
     
